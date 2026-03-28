@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const API = import.meta.env.DEV
-  ? '/xrpc'
-  : 'https://public.api.bsky.app/xrpc'
+const API = '/xrpc'
 
 const TAGS = {
   series: '#subplot-series',
@@ -31,7 +29,6 @@ async function fetchPosts(filter) {
   const tags = filter === 'todos'
     ? Object.values(TAGS)
     : [TAGS[filter]]
-
   const results = await Promise.all(tags.map(searchByTag))
   const merged = results.flat()
   merged.sort((a, b) => b.replyCount - a.replyCount)
@@ -44,7 +41,6 @@ async function searchByTag(tag) {
   )
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const data = await res.json()
-
   return (data.posts ?? [])
     .filter(p => p.record?.$type === 'app.bsky.feed.post')
     .filter(p => !p.record?.reply)

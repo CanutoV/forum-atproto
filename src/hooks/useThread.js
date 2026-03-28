@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const API = import.meta.env.DEV
-  ? '/xrpc'
-  : 'https://public.api.bsky.app/xrpc'
+const API = '/xrpc'
 
 export function useThread(uri) {
   const [thread, setThread] = useState(null)
@@ -33,7 +31,6 @@ async function fetchThread(uri) {
 
 function parseThread(node) {
   if (!node || node.$type !== 'app.bsky.feed.defs#threadViewPost') return null
-
   const post = node.post
   return {
     uri: post.uri,
