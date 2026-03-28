@@ -1,0 +1,12 @@
+{
+  "client_id": "https://subplot.netlify.app/client-metadata.json",
+  "client_name": "Subplot",
+  "client_uri": "https://subplot.netlify.app",
+  "redirect_uris": ["https://subplot.netlify.app/oauth/callback"],
+  "scope": "atproto transition:generic",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "application_type": "web",
+  "dpop_bound_access_tokens": true
+}
