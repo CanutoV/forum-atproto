@@ -6,11 +6,6 @@ export function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!client) {
-      setSession(null)
-      setLoading(false)
-      return
-    }
     client.restore()
       .then(setSession)
       .catch(() => setSession(null))

@@ -3,7 +3,7 @@ import { AtpAgent } from '@atproto/api'
 
 const isDev = import.meta.env.DEV
 
-export const client = isDev ? null : new BrowserOAuthClient({
+export const client = new BrowserOAuthClient({
   clientMetadata: {
     client_id: `${window.location.origin}/client-metadata.json`,
     client_name: 'Subplot',
@@ -20,8 +20,7 @@ export const client = isDev ? null : new BrowserOAuthClient({
 
 export async function login(handle) {
   if (isDev) {
-    alert('OAuth não funciona em localhost. Teste em subplot.netlify.app')
-    return
+    alert('OAuth pode não funcionar completamente em localhost devido a restrições de CORS e HTTPS. Teste em produção para funcionalidade completa.')
   }
   await client.signIn(handle, {
     scope: 'atproto transition:generic',
@@ -29,12 +28,10 @@ export async function login(handle) {
 }
 
 export async function getSession() {
-  if (isDev) return null
   return await client.restore()
 }
 
 export async function logout() {
-  if (isDev) return
   const session = await getSession()
   if (session) await session.signOut()
 }
